@@ -3,10 +3,10 @@ from pathlib import Path
 
 from hydra_zen import store, zen
 
-from lightning_hydra_zen_template.classical.configs import EvalCfg
-from lightning_hydra_zen_template.classical.core.datamodule import DataModule
-from lightning_hydra_zen_template.classical.core.module import Model
-from lightning_hydra_zen_template.classical.core.trainer import Trainer
+from sklearn_hydra_zen_template.configs import EvalCfg
+from sklearn_hydra_zen_template.core.datamodule import DataModule
+from sklearn_hydra_zen_template.core.module import Model
+from sklearn_hydra_zen_template.core.trainer import Trainer
 from lightning_hydra_zen_template.deep.utils.print_config import print_config
 
 log = logging.getLogger(__name__)

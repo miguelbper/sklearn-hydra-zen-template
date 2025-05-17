@@ -6,9 +6,9 @@ from numpy.typing import NDArray
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 
-from lightning_hydra_zen_template.classical.core.datamodule import DataModule
-from lightning_hydra_zen_template.classical.core.module import Module
-from lightning_hydra_zen_template.classical.core.trainer import Trainer
+from sklearn_hydra_zen_template.core.datamodule import DataModule
+from sklearn_hydra_zen_template.core.module import Module
+from sklearn_hydra_zen_template.core.trainer import Trainer
 
 N = 5
 rng = np.random.RandomState(42)

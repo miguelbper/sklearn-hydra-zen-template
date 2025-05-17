@@ -1,8 +1,8 @@
 from pathlib import Path
 
-from lightning_hydra_zen_template.classical.core.datamodule import DataModule
-from lightning_hydra_zen_template.classical.core.module import Module
-from lightning_hydra_zen_template.classical.utils.print_metrics import print_metrics
+from sklearn_hydra_zen_template.core.datamodule import DataModule
+from sklearn_hydra_zen_template.core.module import Module
+from sklearn_hydra_zen_template.utils.print_metrics import print_metrics
 
 Ckpt = str | Path
 Metrics = dict[str, float]

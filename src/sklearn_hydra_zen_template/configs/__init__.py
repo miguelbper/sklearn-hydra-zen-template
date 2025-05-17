@@ -1,8 +1,8 @@
 import importlib
 import pkgutil
 
-from lightning_hydra_zen_template.classical.configs.eval import EvalCfg
-from lightning_hydra_zen_template.classical.configs.train import TrainCfg
+from sklearn_hydra_zen_template.configs.eval import EvalCfg
+from sklearn_hydra_zen_template.configs.train import TrainCfg
 
 __all__ = ["TrainCfg", "EvalCfg"]
 

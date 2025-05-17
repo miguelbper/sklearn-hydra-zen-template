@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from numpy.typing import NDArray
 
-from lightning_hydra_zen_template.classical.core.datamodule import DataModule
+from sklearn_hydra_zen_template.core.datamodule import DataModule
 
 NUM_TRAIN_SAMPLES = 10
 NUM_VAL_SAMPLES = 2

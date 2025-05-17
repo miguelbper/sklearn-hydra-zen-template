@@ -3,7 +3,7 @@ from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-from lightning_hydra_zen_template.classical.core.datamodule import DataModule
+from sklearn_hydra_zen_template.core.datamodule import DataModule
 
 
 class IrisDataModule(DataModule):

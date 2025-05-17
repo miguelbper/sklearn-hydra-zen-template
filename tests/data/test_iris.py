@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from sklearn.datasets import load_iris
 
-from lightning_hydra_zen_template.classical.data.iris import IrisDataModule
+from sklearn_hydra_zen_template.data.iris import IrisDataModule
 
 
 @pytest.fixture

@@ -1,7 +1,7 @@
 from hydra_zen import store
 
-from lightning_hydra_zen_template.classical.configs.utils.utils import fbuilds, log_instantiation
-from lightning_hydra_zen_template.classical.core.trainer import Trainer
+from sklearn_hydra_zen_template.configs.utils.utils import fbuilds, log_instantiation
+from sklearn_hydra_zen_template.core.trainer import Trainer
 
 TrainerCfg = fbuilds(
     Trainer,

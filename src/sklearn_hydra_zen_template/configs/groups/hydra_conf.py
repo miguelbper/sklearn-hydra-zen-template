@@ -3,7 +3,7 @@ import os
 from hydra.conf import HydraConf, RunDir, SweepDir
 from hydra_zen import store
 
-from lightning_hydra_zen_template.classical.configs.groups.paths import log_dir, output_dir
+from sklearn_hydra_zen_template.configs.groups.paths import log_dir, output_dir
 
 year_month_day = "${now:%Y-%m-%d}"
 hour_minute_second = "${now:%H-%M-%S}"

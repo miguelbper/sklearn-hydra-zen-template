@@ -1,6 +1,6 @@
 from hydra_zen import make_config
 
-from lightning_hydra_zen_template.classical.configs.groups.paths import PathsCfg
+from sklearn_hydra_zen_template.configs.groups.paths import PathsCfg
 
 TrainCfg = make_config(
     hydra_defaults=[

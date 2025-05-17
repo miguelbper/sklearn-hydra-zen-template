@@ -2,11 +2,11 @@ import logging
 
 from hydra_zen import store, zen
 
-from lightning_hydra_zen_template.classical.configs import TrainCfg
-from lightning_hydra_zen_template.classical.core.datamodule import DataModule
-from lightning_hydra_zen_template.classical.core.module import Module
-from lightning_hydra_zen_template.classical.core.trainer import Trainer
-from lightning_hydra_zen_template.classical.utils.print_config import print_config
+from sklearn_hydra_zen_template.configs import TrainCfg
+from sklearn_hydra_zen_template.core.datamodule import DataModule
+from sklearn_hydra_zen_template.core.module import Module
+from sklearn_hydra_zen_template.core.trainer import Trainer
+from sklearn_hydra_zen_template.utils.print_config import print_config
 
 log = logging.getLogger(__name__)
 
