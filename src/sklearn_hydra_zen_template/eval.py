@@ -7,7 +7,7 @@ from sklearn_hydra_zen_template.configs import EvalCfg
 from sklearn_hydra_zen_template.core.datamodule import DataModule
 from sklearn_hydra_zen_template.core.module import Model
 from sklearn_hydra_zen_template.core.trainer import Trainer
-from lightning_hydra_zen_template.deep.utils.print_config import print_config
+from sklearn_hydra_zen_template.utils.print_config import print_config
 
 log = logging.getLogger(__name__)
 
