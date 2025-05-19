@@ -7,7 +7,7 @@ from sklearn_hydra_zen_template.configs import TrainCfg
 from sklearn_hydra_zen_template.core.datamodule import DataModule
 from sklearn_hydra_zen_template.core.module import Module
 from sklearn_hydra_zen_template.core.trainer import Trainer
-from sklearn_hydra_zen_template.utils.print_config import print_config
+from sklearn_hydra_zen_template.utils.logging import log_git_status, log_python_env, print_config
 
 log = logging.getLogger(__name__)
 Ckpt = str | Path
@@ -43,7 +43,7 @@ def main() -> None:
     """
     store(TrainCfg, name="config")
     store.add_to_hydra_store()
-    task_fn = zen(train, pre_call=print_config)
+    task_fn = zen(train, pre_call=[log_git_status, log_python_env, print_config])
     task_fn.hydra_main(config_path=None, config_name="config", version_base="1.3")
 
 

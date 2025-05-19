@@ -6,7 +6,7 @@ from hydra_zen import store, zen
 from sklearn_hydra_zen_template.configs import EvalCfg
 from sklearn_hydra_zen_template.core.datamodule import DataModule
 from sklearn_hydra_zen_template.core.trainer import Trainer
-from sklearn_hydra_zen_template.utils.print_config import print_config
+from sklearn_hydra_zen_template.utils.logging import print_config
 
 log = logging.getLogger(__name__)
 Ckpt = str | Path
