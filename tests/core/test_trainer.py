@@ -72,16 +72,15 @@ def ckpt_path(tmp_path: Path) -> Path:
 
 
 @pytest.fixture
-def trainer(ckpt_path: Path) -> Trainer:
-    return Trainer(ckpt_path=ckpt_path)
+def trainer() -> Trainer:
+    return Trainer()
 
 
 class TestTrainer:
-    def test_fit(self, trainer: Trainer, datamodule: DataModule, model: Module) -> None:
-        trainer.fit(model, datamodule)
+    def test_fit(self, trainer: Trainer, datamodule: DataModule, model: Module, ckpt_path: Path) -> None:
+        trainer.fit(model, datamodule, ckpt_path)
         assert hasattr(model.model, "coef_")
         assert hasattr(model.model, "intercept_")
-        assert trainer.ckpt_path.exists()
 
     def test_validate(self, trainer: Trainer, datamodule: DataModule, model: Module) -> None:
         trainer.fit(model, datamodule)
@@ -100,7 +99,7 @@ class TestTrainer:
         assert isinstance(metrics["test/mean_squared_error"], float)
 
     def test_checkpoint(self, trainer: Trainer, datamodule: DataModule, model: Module, ckpt_path: Path) -> None:
-        trainer.fit(model, datamodule)
+        trainer.fit(model, datamodule, ckpt_path)
 
         val_metrics_ckpt = trainer.validate(None, datamodule, ckpt_path)
         val_metrics_model = trainer.validate(model, datamodule, None)

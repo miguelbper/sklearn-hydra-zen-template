@@ -5,7 +5,7 @@ from hydra_zen import store, zen
 
 from sklearn_hydra_zen_template.configs import EvalCfg
 from sklearn_hydra_zen_template.core.datamodule import DataModule
-from sklearn_hydra_zen_template.core.module import Model
+from sklearn_hydra_zen_template.core.module import Module
 from sklearn_hydra_zen_template.core.trainer import Trainer
 from sklearn_hydra_zen_template.utils.print_config import print_config
 
@@ -14,7 +14,7 @@ log = logging.getLogger(__name__)
 
 def evaluate(
     data: DataModule,
-    model: Model,
+    model: Module,
     trainer: Trainer,
     ckpt_path: str | Path,
 ) -> None:
@@ -25,7 +25,7 @@ def evaluate(
 
     Args:
         data (DataModule): The data module containing test data.
-        model (Model): The model to evaluate.
+        model (Module): The model to evaluate.
         trainer (Trainer): The trainer instance.
         ckpt_path (str | Path): Path to the checkpoint file to load the model from.
     """
