@@ -7,32 +7,44 @@ from sklearn_hydra_zen_template.configs import TrainCfg
 from sklearn_hydra_zen_template.core.datamodule import DataModule
 from sklearn_hydra_zen_template.core.module import Module
 from sklearn_hydra_zen_template.core.trainer import Trainer
-from sklearn_hydra_zen_template.utils.logging import log_git_status, log_python_env, print_config
+from sklearn_hydra_zen_template.utils.log_to_mlflow import log_to_mlflow
+from sklearn_hydra_zen_template.utils.print_config import log_git_status, log_python_env, print_config
 
 log = logging.getLogger(__name__)
 Ckpt = str | Path
 
 
-def train(data: DataModule, model: Module, trainer: Trainer, ckpt_path: Ckpt | None, monitor: str) -> float | None:
+def train(
+    data: DataModule,
+    model: Module,
+    trainer: Trainer,
+    paths: list[str],
+    ckpt_path: Ckpt | None,
+    monitor: str,
+) -> float | None:
     """Train, validate and test a scikit-learn model.
 
     Args:
         data (DataModule): The data module containing training, validation and test data.
         model (Module): The model to train.
         trainer (Trainer): The trainer instance.
+        paths (list[str]): The paths to the output directory.
         ckpt_path (str | Path | None, optional): Path to a checkpoint to resume training from. Defaults to None.
-        evaluate (bool, optional): Whether to run validation and testing after training. Defaults to True.
+        monitor (str): Metric name to monitor for model selection.
     """
     log.info("Training model")
     trainer.fit(model=model, datamodule=data, ckpt_path=ckpt_path)
 
     log.info("Validating model")
-    metrics = trainer.validate(model=model, datamodule=data)
+    val_metrics = trainer.validate(model=model, datamodule=data)
 
     log.info("Testing model")
-    trainer.test(model=model, datamodule=data)
+    test_metrics = trainer.test(model=model, datamodule=data)
 
-    return metrics.get(monitor, None)
+    metrics = {**val_metrics, **test_metrics}
+    log_to_mlflow(data, model, paths, ckpt_path, metrics)
+
+    return metrics.get(monitor)
 
 
 def main() -> None:
