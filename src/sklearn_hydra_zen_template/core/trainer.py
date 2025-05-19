@@ -9,7 +9,10 @@ Metrics = dict[str, float]
 
 
 class Trainer:
-    def fit(self, model: Module, datamodule: DataModule, ckpt_path: Ckpt | None = None) -> None:
+    def __init__(self, ckpt_path: Ckpt | None = None):
+        self.ckpt_path = ckpt_path
+
+    def fit(self, model: Module, datamodule: DataModule) -> None:
         """Train a model using the provided datamodule.
 
         Args:
@@ -19,8 +22,8 @@ class Trainer:
         """
         X, y = datamodule.train_set()
         model.train(X, y)
-        if ckpt_path:
-            model.save(ckpt_path)
+        if self.ckpt_path:
+            model.save(self.ckpt_path)
 
     def validate(self, model: Module | None, datamodule: DataModule, ckpt_path: Ckpt | None = None) -> Metrics:
         """Evaluate the model on validation data.
