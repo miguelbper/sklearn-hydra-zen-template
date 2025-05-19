@@ -15,13 +15,9 @@ A template for machine learning projects using scikit-learn and hydra-zen
 
 Click on [<kbd>Use this template</kbd>](https://github.com/miguelbper/sklearn-hydra-zen-template/generate) to start a new project!
 
-<!-- TODO: fix image -->
-![img.png](img.png)
-
 </div>
 
 ---
-<!-- TODO: add better description -->
 ## Description
 
 A template for machine learning projects, using modern tooling and practices. Implements the features which are common across different machine learning problems (logging, checkpointing, experiment tracking, training and evaluation scripts...) so that you can focus on the specifics of your problem: data analysis and modeling.
@@ -119,9 +115,76 @@ Here is an example of a resolved config file (that is printed to the terminal an
 <details>
 <summary>Click to expand the resolved config</summary>
 
-<!-- TODO: Include resolved config -->
 ```
-
+config
+├── data
+│   ├── _target_: hydra_zen.funcs.zen_processing
+│   ├── _zen_target: sklearn_hydra_zen_template.data.iris.IrisDataModule
+│   ├── _zen_wrappers: sklearn_hydra_zen_template.configs.utils.utils.log_instantiation
+│   ├── test_size: 0.2
+│   ├── val_size: 0.2
+│   ├── random_state: 42
+│   └── standardize: True
+├── model
+│   ├── _target_: hydra_zen.funcs.zen_processing
+│   ├── _zen_target: sklearn_hydra_zen_template.core.module.Module
+│   ├── _zen_wrappers: sklearn_hydra_zen_template.configs.utils.utils.log_instantiation
+│   ├── model
+│   │   ├── _target_: sklearn.linear_model._logistic.LogisticRegression
+│   │   ├── penalty: l2
+│   │   ├── dual: False
+│   │   ├── tol: 0.0001
+│   │   ├── C: 1.0
+│   │   ├── fit_intercept: True
+│   │   ├── intercept_scaling: 1
+│   │   ├── class_weight: None
+│   │   ├── random_state: None
+│   │   ├── solver: lbfgs
+│   │   ├── max_iter: 100
+│   │   ├── multi_class: deprecated
+│   │   ├── verbose: 0
+│   │   ├── warm_start: False
+│   │   ├── n_jobs: None
+│   │   └── l1_ratio: None
+│   └── metrics
+│       ├── 0
+│       │   ├── path: sklearn.metrics._classification.accuracy_score
+│       │   └── _target_: hydra_zen.funcs.get_obj
+│       ├── 1
+│       │   ├── _target_: sklearn.metrics._classification.f1_score
+│       │   ├── _partial_: True
+│       │   ├── labels: None
+│       │   ├── pos_label: 1
+│       │   ├── average: macro
+│       │   ├── sample_weight: None
+│       │   └── zero_division: warn
+│       ├── 2
+│       │   ├── _target_: sklearn.metrics._classification.precision_score
+│       │   ├── _partial_: True
+│       │   ├── labels: None
+│       │   ├── pos_label: 1
+│       │   ├── average: macro
+│       │   ├── sample_weight: None
+│       │   └── zero_division: warn
+│       └── 3
+│           ├── _target_: sklearn.metrics._classification.recall_score
+│           ├── _partial_: True
+│           ├── labels: None
+│           ├── pos_label: 1
+│           ├── average: macro
+│           ├── sample_weight: None
+│           └── zero_division: warn
+├── trainer
+│   ├── _target_: hydra_zen.funcs.zen_processing
+│   ├── _zen_target: sklearn_hydra_zen_template.core.trainer.Trainer
+│   └── _zen_wrappers: sklearn_hydra_zen_template.configs.utils.utils.log_instantiation
+├── task_name: train
+├── tags
+│   └── 0: dev
+├── ckpt_path: /Users/miguel/github/sklearn-hydra-zen-template/logs/train/runs/2025-05-19/12-28-12/ckpt.pkl
+├── seed: 42
+├── monitor: val/accuracy_score
+└── mode: max
 ```
 </details>
 
