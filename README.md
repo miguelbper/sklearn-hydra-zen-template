@@ -76,6 +76,12 @@ Tech Stack:
 │       │   ├── eval.py                <- Main configuration for evaluation
 │       │   └── train.py               <- Main configuration for training
 │       │
+│       ├── core/                      <- Core components of the framework
+│       │   ├── __init__.py
+│       │   ├── datamodule.py          <- Abstract base class for data modules
+│       │   ├── module.py              <- Wrapper for sklearn models which includes metrics
+│       │   └── trainer.py             <- Training and evaluation logic
+│       │
 │       ├── data/                      <- DataModules for handling datasets
 │       │
 │       ├── model/                     <- Modules
