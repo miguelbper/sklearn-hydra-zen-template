@@ -13,7 +13,7 @@ class DataModule(ABC):
                 - X: Input features for training
                 - y: Target values for training
         """
-        pass
+        pass  # pragma: no cover
 
     @abstractmethod
     def validation_set(self) -> tuple[ArrayLike, ArrayLike]:
@@ -24,7 +24,7 @@ class DataModule(ABC):
                 - X: Input features for validation
                 - y: Target values for validation
         """
-        pass
+        pass  # pragma: no cover
 
     @abstractmethod
     def test_set(self) -> tuple[ArrayLike, ArrayLike]:
@@ -35,4 +35,4 @@ class DataModule(ABC):
                 - X: Input features for testing
                 - y: Target values for testing
         """
-        pass
+        pass  # pragma: no cover
