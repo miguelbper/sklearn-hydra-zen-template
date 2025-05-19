@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 
 from hydra_zen import store, zen
 
@@ -9,9 +10,10 @@ from sklearn_hydra_zen_template.core.trainer import Trainer
 from sklearn_hydra_zen_template.utils.print_config import print_config
 
 log = logging.getLogger(__name__)
+Ckpt = str | Path
 
 
-def train(data: DataModule, model: Module, trainer: Trainer, monitor: str) -> float | None:
+def train(data: DataModule, model: Module, trainer: Trainer, ckpt_path: Ckpt | None, monitor: str) -> float | None:
     """Train, validate and test a scikit-learn model.
 
     Args:
@@ -22,7 +24,7 @@ def train(data: DataModule, model: Module, trainer: Trainer, monitor: str) -> fl
         evaluate (bool, optional): Whether to run validation and testing after training. Defaults to True.
     """
     log.info("Training model")
-    trainer.fit(model=model, datamodule=data)
+    trainer.fit(model=model, datamodule=data, ckpt_path=ckpt_path)
 
     log.info("Validating model")
     metrics = trainer.validate(model=model, datamodule=data)

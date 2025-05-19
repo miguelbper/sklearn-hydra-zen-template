@@ -15,7 +15,6 @@ EvalCfg = make_config(
     ],
     # Main components
     data=None,
-    model=None,
     trainer=None,
     # Run configs
     paths=PathsCfg,
