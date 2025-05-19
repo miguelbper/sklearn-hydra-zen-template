@@ -5,19 +5,14 @@ from hydra_zen import store, zen
 
 from sklearn_hydra_zen_template.configs import EvalCfg
 from sklearn_hydra_zen_template.core.datamodule import DataModule
-from sklearn_hydra_zen_template.core.module import Model
 from sklearn_hydra_zen_template.core.trainer import Trainer
 from sklearn_hydra_zen_template.utils.print_config import print_config
 
 log = logging.getLogger(__name__)
+Ckpt = str | Path
 
 
-def evaluate(
-    data: DataModule,
-    model: Model,
-    trainer: Trainer,
-    ckpt_path: str | Path,
-) -> None:
+def evaluate(data: DataModule, trainer: Trainer, ckpt_path: Ckpt) -> None:
     """Evaluate a trained model using a checkpoint.
 
     This function loads a model from a checkpoint and runs evaluation on the test set
@@ -25,12 +20,11 @@ def evaluate(
 
     Args:
         data (DataModule): The data module containing test data.
-        model (Model): The model to evaluate.
         trainer (Trainer): The trainer instance.
         ckpt_path (str | Path): Path to the checkpoint file to load the model from.
     """
     log.info("Testing model")
-    trainer.test(model=model, datamodule=data, ckpt_path=ckpt_path)
+    trainer.test(model=None, datamodule=data, ckpt_path=ckpt_path)
 
 
 def main() -> None:

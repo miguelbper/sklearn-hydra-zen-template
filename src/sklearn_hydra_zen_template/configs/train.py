@@ -1,6 +1,8 @@
+import os
+
 from hydra_zen import make_config
 
-from sklearn_hydra_zen_template.configs.groups.paths import PathsCfg
+from sklearn_hydra_zen_template.configs.groups.paths import PathsCfg, output_dir
 
 TrainCfg = make_config(
     hydra_defaults=[
@@ -22,8 +24,9 @@ TrainCfg = make_config(
     trainer=None,
     # Run configs
     paths=PathsCfg,
-    task_name="train_iris",
+    task_name="train",
     tags=["dev"],
+    ckpt_path=os.path.join(output_dir, "ckpt.pkl"),
     seed=42,
     monitor="val/accuracy_score",
     mode="max",

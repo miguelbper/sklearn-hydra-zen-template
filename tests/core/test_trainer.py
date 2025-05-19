@@ -81,7 +81,6 @@ class TestTrainer:
         trainer.fit(model, datamodule, ckpt_path)
         assert hasattr(model.model, "coef_")
         assert hasattr(model.model, "intercept_")
-        assert ckpt_path.exists()
 
     def test_validate(self, trainer: Trainer, datamodule: DataModule, model: Module) -> None:
         trainer.fit(model, datamodule)

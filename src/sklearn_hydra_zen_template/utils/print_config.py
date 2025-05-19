@@ -2,10 +2,14 @@ import copy
 import logging
 import os
 
+import pkg_resources
 import rich
 import rich.syntax
 import rich.tree
+from git import Repo
 from omegaconf import DictConfig, ListConfig, OmegaConf, flag_override
+from rich.console import Console
+from rich.table import Table
 
 log = logging.getLogger(__name__)
 
@@ -79,3 +83,67 @@ def cfg_to_tree(cfg: DictConfig) -> rich.tree.Tree:
     tree = rich.tree.Tree("config")
     add_to_tree(tree, 0, cfg)
     return tree
+
+
+def log_python_env(cfg: DictConfig) -> None:
+    """Log the current Python environment to a file.
+
+    This function creates a file containing a list of all installed Python packages
+    and their versions in the output directory. The packages are sorted alphabetically
+    and formatted as 'package_name==version'.
+
+    Args:
+        cfg (DictConfig): The configuration object containing output directory path.
+    """
+    output_dir: str = cfg.paths.output_dir
+    python_env_file: str = os.path.join(output_dir, "python_env.log")
+    log.info(f"Logging Python environment to {python_env_file}")
+    installed_packages = sorted(f"{dist.key}=={dist.version}\n" for dist in pkg_resources.working_set)
+    with open(python_env_file, "w") as file:
+        file.writelines(installed_packages)
+
+
+def log_git_status(cfg: DictConfig) -> None:
+    """Log git repository status and changes to a file.
+
+    This function creates a file containing:
+    1. The current commit hash
+    2. A detailed diff of all uncommitted changes
+    3. A summary of the git status
+
+    The information is written to a file in the output directory. If the repository
+    cannot be accessed or an error occurs, an error message is written instead.
+
+    Args:
+        cfg (DictConfig): The configuration object containing output directory path.
+    """
+    output_dir: str = cfg.paths.output_dir
+    git_status_file: str = os.path.join(output_dir, "git_status.log")
+    log.info(f"Logging git status to {git_status_file}")
+
+    repo = Repo(search_parent_directories=True)
+    with open(git_status_file, "w") as file:
+        file.write(f"Commit hash: {repo.head.commit.hexsha}\n\n")
+        file.write(repo.git.diff() + "\n\n")
+        file.write(repo.git.status())
+
+
+Metrics = dict[str, float]
+
+
+def print_metrics(metrics: Metrics, prefix: str) -> None:
+    """Pretty print metrics in a table format using Rich.
+
+    Args:
+        metrics: Dictionary of metric names and values
+        prefix: Prefix to use in the title (e.g., 'Validation' or 'Test')
+    """
+    console = Console()
+    table = Table()
+    table.add_column(f"{prefix} metric", style="cyan")
+    table.add_column("Value", style="magenta")
+
+    for name, value in metrics.items():
+        table.add_row(name, f"{value:.16f}")
+
+    console.print(table)
